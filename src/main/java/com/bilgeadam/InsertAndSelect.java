@@ -30,17 +30,18 @@ public class InsertAndSelect {
 //            System.out.println("INSERT işlemi  sonucunda etkilenen satir sayisi : " + affectedRows);
 
 
-            //SELECT ISLEMI
+            //SELECT ISLEMI /
             String selecSQL = "SELECT * FROM tablo_adi";
-            PreparedStatement selectStatement = connection.prepareStatement(selecSQL);
-            ResultSet resultSet = selectStatement.executeQuery();
-            while (resultSet.next()){
-                String sutun1Degeri = resultSet.getString("name");
+            //PreparedStatement qls sorgus barındırmak ve sorgularda kullanılır
+            PreparedStatement selectStatement = connection.prepareStatement(selecSQL); //selectStatement sabit sql sorgularında kullanılır
+            ResultSet resultSet = selectStatement.executeQuery(); //ResultSet = sonuçalr kümesi , // executeQuery query i çalıştırmak için kullanılır.(script olarakk burada kullanılır.)(play)
+            while (resultSet.next()){ //okunacak değr varsa true döner
+                String sutun1Degeri = resultSet.getString("name"); //kolonları değişkene atadık
                 String sutun2Degeri = resultSet.getString("surname");
                 System.out.println("Name : " +sutun1Degeri + "\n" + "Surname : " + sutun2Degeri + "\n");
             }
 
-            connection.close();
+            connection.close(); //bağlantıyı sonlandırı.sonlandırılmadığında dışarıdan saldırı olabilir.güvenlik nedeni ile kapatılır.
 
         }catch(SQLException e){
             e.printStackTrace();

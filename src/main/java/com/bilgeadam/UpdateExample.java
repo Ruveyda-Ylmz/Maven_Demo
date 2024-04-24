@@ -5,21 +5,25 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DeleteExample {
+public class UpdateExample {
     public static void main(String[] args) throws SQLException {
         String jdbcURL = "jdbc:postgresql://localhost:5432/Veritabani_adi";
         String kullanici_adi = "postgres";  //postgresql kullanıcı adi
         String sifre = "root"; //postgresql şifresi
-
         try{
             Connection connection = DriverManager.getConnection(jdbcURL,kullanici_adi,sifre);
-            String deleteSQL = "DELETE FROM  tablo_adi WHERE name = ?";
-            PreparedStatement deleteStatment = connection.prepareStatement(deleteSQL);
-            deleteStatment.setString(1,"abuzer");
-            int affenctedRows = deleteStatment.executeUpdate();
-            System.out.println("DELETE işlemi sonucunda etkilenen satır sayısı : " + affenctedRows);
+
+            //UPDATE İŞLEMİ (soy isimi uyuşan kişinin adını değiştir)
+            String updateSQL  = "UPDATE tablo_adi SET name=? WHERE surname = ?";
+            PreparedStatement updateStatment = connection.prepareStatement(updateSQL);
+            updateStatment.setString(1,"hakyer");
+            updateStatment.setString(2,"hakan");
+            int afectedRows = updateStatment.executeUpdate();
+            System.out.println("UPDATE işlem sonucunda etrkilenen satır sayısı : " + afectedRows);
+            connection.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
+
     }
 }
